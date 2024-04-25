@@ -1,11 +1,14 @@
 package com.meysam.logcollector.outboxengine.service.impl;
 
+import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
 import com.meysam.logcollector.common.model.entity.LogEntity;
 import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import com.meysam.logcollector.common.outbox.service.Impl.OutboxServiceImpl;
+import com.meysam.logcollector.common.service.feign.api.ExternalServiceFeignClient;
 import com.meysam.logcollector.outboxengine.repository.FailedLogRepository;
 import com.meysam.logcollector.outboxengine.service.api.LogOutboxService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,9 +21,12 @@ import java.util.UUID;
 public class LogOutboxServiceImpl extends OutboxServiceImpl<LogEntity> implements LogOutboxService {
 
     private final FailedLogRepository failedLogRepository;
-    public LogOutboxServiceImpl(FailedLogRepository failedLogRepository) {
+    private final ExternalServiceFeignClient externalService;
+
+    public LogOutboxServiceImpl(FailedLogRepository failedLogRepository, ExternalServiceFeignClient externalService) {
         super(failedLogRepository);
         this.failedLogRepository =failedLogRepository;
+        this.externalService = externalService;
     }
 
 
@@ -64,14 +70,31 @@ public class LogOutboxServiceImpl extends OutboxServiceImpl<LogEntity> implement
 
     @Override
     public void retry(LogEntity failedLog) {
-        //send to external service again
+        sendLogToExternalServiceFromOutbox(failedLog);
+    }
+
+    private void sendLogToExternalServiceFromOutbox(LogEntity logEntity) {
+        ResponseEntity<String> response =  externalService.sendLogToExternalApi(new AddLogRequestDto(logEntity.getBody(),
+                logEntity.getServiceName(),
+                logEntity.getRequestId(),
+                logEntity.getType()));
+
+        if(response.getStatusCode().is2xxSuccessful()){
+            try {
+                failedLogRepository.updateStatusInDistinctTransaction(logEntity.getId() , OutboxEventStatus.SENT,OutboxEventStatus.getAllValidStatusesForSent());
+            }catch (Exception dbException){
+                log.error("after sending log:{} successfully at time:{}, we couldn't update OutboxEventStatus to SENT, exception:{}",
+                        logEntity.toString(),System.currentTimeMillis(),dbException);
+            }
+        }
+
     }
 
     public int changeStatusToSent(int outboxTrackingCode) {
         try {
             LogEntity failedLog = failedLogRepository.findByOutboxTrackingCode(outboxTrackingCode).orElse(null);
             if (Objects.nonNull(failedLog)) {
-                return failedLogRepository.updateStatusInDistinctTransaction(failedLog.getId(), OutboxEventStatus.SENT, OutboxEventStatus.getAllValidStatusesForSent());
+                return failedLogRepository.updateStatusInDistinctTransactionAndCountRetry(failedLog.getId(), OutboxEventStatus.SENT, OutboxEventStatus.getAllValidStatusesForSent());
             }
             return 0;
         }catch (Exception e){

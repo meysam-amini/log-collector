@@ -75,7 +75,7 @@ public abstract class OutboxServiceImpl<T extends OutBoxableBaseEntity> implemen
 
     @Override
     public int updateStatusInDistinctTransaction(Long id, OutboxEventStatus status, List<OutboxEventStatus> validStatuses) {
-        return outboxRepository.<T>updateStatusInDistinctTransaction(id,status,validStatuses);
+        return outboxRepository.<T>updateStatusInDistinctTransactionAndCountRetry(id,status,validStatuses);
     }
 
     @Override

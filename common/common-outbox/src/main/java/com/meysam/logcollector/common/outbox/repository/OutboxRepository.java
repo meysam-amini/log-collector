@@ -23,6 +23,12 @@ public interface OutboxRepository<T extends OutBoxableBaseEntity> extends BaseRe
     @Modifying
     @Query("update #{#entityName} T set T.status = :status , T.retryCount=T.retryCount+1" +
             " where T.status in :validStatuses and T.id = :id")
+    int updateStatusInDistinctTransactionAndCountRetry(Long id, OutboxEventStatus status, List<OutboxEventStatus> validStatuses);
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Modifying
+    @Query("update #{#entityName} T set T.status = :status" +
+            " where T.status in :validStatuses and T.id = :id")
     int updateStatusInDistinctTransaction(Long id, OutboxEventStatus status, List<OutboxEventStatus> validStatuses);
 
 }

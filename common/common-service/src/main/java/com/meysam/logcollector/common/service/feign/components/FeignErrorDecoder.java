@@ -1,4 +1,4 @@
-package com.meysam.logcollector.addlog.feign;
+package com.meysam.logcollector.common.service.feign.components;
 
 import feign.Response;
 import feign.RetryableException;

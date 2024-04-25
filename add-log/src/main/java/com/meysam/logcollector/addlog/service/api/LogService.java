@@ -10,7 +10,6 @@ public interface LogService {
 
     AddLogResponseDto addLogToQueue(AddLogRequestDto addLogRequestDto);
     ResponseEntity<AddLogResponseDto> sendLogToExternalService(AddLogRequestDto logDto);
-    void sendLogToExternalServiceFromOutbox(LogEntity logEntity);
     void sendLogsFromKafkaConsumerToExternalService(LogDto logDto);
 
 }

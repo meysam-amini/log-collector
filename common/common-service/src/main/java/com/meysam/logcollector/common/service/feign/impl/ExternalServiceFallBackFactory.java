@@ -1,10 +1,9 @@
-package com.meysam.logcollector.addlog.service.impl;
+package com.meysam.logcollector.common.service.feign.impl;
 
-import com.meysam.logcollector.addlog.service.api.ExternalServiceFeignClient;
 import com.meysam.logcollector.common.exception.exceptions.ServicesException;
 import com.meysam.logcollector.common.exception.messagesLoader.LocaleMessageSourceService;
 import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
-import com.meysam.logcollector.common.model.dto.LogDto;
+import com.meysam.logcollector.common.service.feign.api.ExternalServiceFeignClient;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

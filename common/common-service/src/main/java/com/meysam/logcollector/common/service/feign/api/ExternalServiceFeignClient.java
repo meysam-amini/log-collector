@@ -1,9 +1,7 @@
-package com.meysam.logcollector.addlog.service.api;
+package com.meysam.logcollector.common.service.feign.api;
 
-import com.meysam.logcollector.addlog.feign.CustomRetrier;
-import com.meysam.logcollector.addlog.feign.FeignErrorDecoder;
 import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
-import com.meysam.logcollector.addlog.service.impl.ExternalServiceFallBackFactory;
+import com.meysam.logcollector.common.service.feign.components.FeignErrorDecoder;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

@@ -17,7 +17,7 @@ import org.springframework.retry.annotation.EnableRetry;
 @ComponentScan(basePackages = {"com.meysam.logcollector.*.*"})
 @EnableJpaRepositories(basePackages = "com.meysam.logcollector.*.*")
 @EntityScan(basePackages = "com.meysam.logcollector.*.*")
-@EnableFeignClients(basePackages = {"com.meysam.logcollector.*.*.*"})
+@EnableFeignClients(basePackages = {"com.meysam.logcollector.common.*.*.*"})
 @EnableRetry
 public class AddLogApplication {
 
