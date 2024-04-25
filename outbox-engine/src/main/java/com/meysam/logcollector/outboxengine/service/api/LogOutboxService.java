@@ -5,7 +5,6 @@ import com.meysam.logcollector.common.outbox.service.api.OutboxService;
 
 public interface LogOutboxService extends OutboxService<LogEntity> {
 
-    int changeStatusToSent(int trackingCode);
-    LogEntity save(LogEntity failedLog, Integer trackingCode);
+    void sendLogToExternalServiceFromOutbox(LogEntity logEntity);
 
 }

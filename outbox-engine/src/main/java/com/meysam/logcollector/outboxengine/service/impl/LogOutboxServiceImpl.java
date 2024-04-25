@@ -29,40 +29,6 @@ public class LogOutboxServiceImpl extends OutboxServiceImpl<LogEntity> implement
         this.externalService = externalService;
     }
 
-
-    @Override
-    public LogEntity save(LogEntity flog, Integer outboxTrackingCode) {
-        try {
-            LogEntity failedLog;
-            if (Objects.isNull(outboxTrackingCode)) {
-                outboxTrackingCode = (UUID.randomUUID() + "" + System.currentTimeMillis()).hashCode();
-                failedLog = LogEntity.builder()
-                        .body(flog.getBody())
-                        .type(flog.getType())
-                        .serviceName(flog.getServiceName())
-                        .requestId(flog.getRequestId())
-                        .processed(flog.isProcessed())
-                        .status(flog.getStatus())
-                        .build();
-                failedLog.setOutboxTrackingCode(outboxTrackingCode);
-                failedLog.setRetryCount(0);
-            }else {
-                failedLog = failedLogRepository.findByOutboxTrackingCode(outboxTrackingCode).orElse(null);
-                if(Objects.isNull(flog)) {
-                    LogOutboxServiceImpl.log.error("On saving new failed notification with outbox tracking code:{}, we couldn't find related record at time :{}",outboxTrackingCode,System.currentTimeMillis());
-                    return null;
-                }
-            }
-            failedLog.setStatus(OutboxEventStatus.UNSENT);
-            failedLog.setCreatedDate(new Date());
-            return failedLogRepository.save(flog);
-
-        }catch(Exception e){
-                log.error("exception on saving failed log to outbox at time:{} , data was: {}, exception is:{}", System.currentTimeMillis(), flog.toString(), e);
-                return null;
-            }
-    }
-
     @Override
     public void process() {
         super.process();
@@ -73,7 +39,8 @@ public class LogOutboxServiceImpl extends OutboxServiceImpl<LogEntity> implement
         sendLogToExternalServiceFromOutbox(failedLog);
     }
 
-    private void sendLogToExternalServiceFromOutbox(LogEntity logEntity) {
+    @Override
+    public void sendLogToExternalServiceFromOutbox(LogEntity logEntity) {
         ResponseEntity<String> response =  externalService.sendLogToExternalApi(new AddLogRequestDto(logEntity.getBody(),
                 logEntity.getServiceName(),
                 logEntity.getRequestId(),
@@ -86,20 +53,14 @@ public class LogOutboxServiceImpl extends OutboxServiceImpl<LogEntity> implement
                 log.error("after sending log:{} successfully at time:{}, we couldn't update OutboxEventStatus to SENT, exception:{}",
                         logEntity.toString(),System.currentTimeMillis(),dbException);
             }
-        }
-
-    }
-
-    public int changeStatusToSent(int outboxTrackingCode) {
-        try {
-            LogEntity failedLog = failedLogRepository.findByOutboxTrackingCode(outboxTrackingCode).orElse(null);
-            if (Objects.nonNull(failedLog)) {
-                return failedLogRepository.updateStatusInDistinctTransactionAndCountRetry(failedLog.getId(), OutboxEventStatus.SENT, OutboxEventStatus.getAllValidStatusesForSent());
+        }else{
+            try {
+                failedLogRepository.updateStatusInDistinctTransaction(logEntity.getId() , OutboxEventStatus.UNSENT,OutboxEventStatus.getAllValidStatusesForUnsent());
+            }catch (Exception dbException){
+                log.error("retry sending log:{} wasn't successful at time:{}, we couldn't update OutboxEventStatus to UNSENT again, exception:{}",
+                        logEntity.toString(),System.currentTimeMillis(),dbException);
             }
-            return 0;
-        }catch (Exception e){
-            log.error("On changing status of failed log with outbox tracking code:{}, exception occurred at time:{}, exception is:{}",outboxTrackingCode,System.currentTimeMillis(),e);
-            return 0;
         }
+
     }
 }
