@@ -1,7 +1,6 @@
 package com.meysam.logcollector.common.model.entity;
 
 import com.meysam.logcollector.common.model.enums.LogType;
-import com.meysam.logcollector.common.outbox.interfaces.Outboxable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -14,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity@Table@SuperBuilder
-public class LogEntity extends OutBoxBaseEntity {
+public class LogEntity extends OutBoxableBaseEntity {
 
     private String body;
     private String serviceName;

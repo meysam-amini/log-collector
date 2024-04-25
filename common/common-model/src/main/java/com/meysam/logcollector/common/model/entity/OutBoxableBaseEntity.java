@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor@SuperBuilder
-public class OutBoxBaseEntity {
+public class OutBoxableBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
