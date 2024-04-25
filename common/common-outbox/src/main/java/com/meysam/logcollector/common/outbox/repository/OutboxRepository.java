@@ -1,6 +1,6 @@
 package com.meysam.logcollector.common.outbox.repository;
 
-import com.meysam.logcollector.common.outbox.model.entity.OutBox;
+import com.meysam.logcollector.common.model.entity.OutBoxableBaseEntity;
 import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import ir.pasargad.logcollector.common.dao.repository.BaseRepository;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @NoRepositoryBean
-public interface OutboxRepository<T extends OutBox> extends BaseRepository<T> {
+public interface OutboxRepository<T extends OutBoxableBaseEntity> extends BaseRepository<T> {
 
     @Query("select T from #{#entityName} T  where T.status = :status and T.createdDate < :timeInMillis")
     Page<T> findAllByStatus(OutboxEventStatus status, long timeInMillis, Pageable pageable);

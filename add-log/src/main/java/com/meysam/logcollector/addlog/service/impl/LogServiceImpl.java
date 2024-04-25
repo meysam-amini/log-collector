@@ -18,6 +18,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -112,6 +113,24 @@ public class LogServiceImpl implements LogService {
                 }
             }
             throw new BusinessException("LOG_HAS_NOT_BEEN_SENT_TO_3RDPARTY_BUT_WE_WILL_TRY_IT_LATER");
+        }
+
+    }
+
+    @Override
+    public void sendLogToExternalServiceFromOutbox(LogEntity logEntity) {
+        ResponseEntity<String> response =  externalService.sendLogToExternalApi(new AddLogRequestDto(logEntity.getBody(),
+                logEntity.getServiceName(),
+                logEntity.getRequestId(),
+                logEntity.getType()));
+
+        if(response.getStatusCode().is2xxSuccessful()){
+            try {
+                distinctLogService.updateLogStatusInDistinctTransaction(logEntity.getId() , OutboxEventStatus.SENT);
+            }catch (Exception dbException){
+                log.error("after sending log:{} successfully at time:{}, we couldn't update OutboxEventStatus to SENT, exception:{}",
+                        logEntity.toString(),System.currentTimeMillis(),dbException);
+            }
         }
 
     }

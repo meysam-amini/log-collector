@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -30,6 +32,10 @@ public class DistinctLogServiceImpl implements DistinctLogService {
                     .processed(true)
                     .status(status)
                     .build();
+            if(status.equals(OutboxEventStatus.UNSENT)){
+                logEntity.setOutboxTrackingCode((UUID.randomUUID() + "" + System.currentTimeMillis()).hashCode());
+                logEntity.setRetryCount(0);
+            }
             logRepository.save(logEntity);
             return logEntity;
         }catch (Exception e){

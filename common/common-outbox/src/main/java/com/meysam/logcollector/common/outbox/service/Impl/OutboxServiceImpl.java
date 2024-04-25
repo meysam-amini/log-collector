@@ -1,6 +1,6 @@
 package com.meysam.logcollector.common.outbox.service.Impl;
 
-import com.meysam.logcollector.common.outbox.model.entity.OutBox;
+import com.meysam.logcollector.common.model.entity.OutBoxableBaseEntity;
 import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import com.meysam.logcollector.common.outbox.repository.OutboxRepository;
 import com.meysam.logcollector.common.outbox.service.api.OutboxService;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public abstract class OutboxServiceImpl<T extends OutBox> implements OutboxService<T> {
+public abstract class OutboxServiceImpl<T extends OutBoxableBaseEntity> implements OutboxService<T> {
 
     private final OutboxRepository outboxRepository;
 
@@ -45,7 +45,7 @@ public abstract class OutboxServiceImpl<T extends OutBox> implements OutboxServi
 
         String logUniqueIdentifier = UUID.randomUUID().toString();
 
-        log.info("start to retry failed events with identifier : {} ,data: {}",logUniqueIdentifier, allFailed.stream().map(OutBox::getId).collect(Collectors.toList()));
+        log.info("start to retry failed events with identifier : {} ,data: {}",logUniqueIdentifier, allFailed.stream().map(OutBoxableBaseEntity::getId).collect(Collectors.toList()));
         List<T> validOutbox = new ArrayList<>();
         for (T item : allFailed) {
             if(item.getRetryCount()>=retryCount){
@@ -58,7 +58,7 @@ public abstract class OutboxServiceImpl<T extends OutBox> implements OutboxServi
             }
         }
         validOutbox.forEach(this::retry);
-        log.info("complete retrying failed events with identifier : {} data:{}", logUniqueIdentifier, allFailed.stream().map(OutBox::getId).collect(Collectors.toList()));
+        log.info("complete retrying failed events with identifier : {} data:{}", logUniqueIdentifier, allFailed.stream().map(OutBoxableBaseEntity::getId).collect(Collectors.toList()));
 
         Pageable firstPagePageable = PaginationUtils.getFirstPagePageable(processingPageSize);
         Page<T> outboxEvents = findAllFailed(firstPagePageable);
