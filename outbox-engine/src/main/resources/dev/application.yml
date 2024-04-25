@@ -1,0 +1,19 @@
+
+
+server:
+  port: ${PORT:0}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka
+spring:
+  application:
+    name: outbox-engine
+
+outbox:
+  engine:
+    delay: 60 * 1000 * 60
+
+
+

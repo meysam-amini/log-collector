@@ -1,0 +1,53 @@
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+          #####################################################
+
+      routes:
+        - id: auth-ws
+          uri: lb://auth-ws
+          predicates:
+            - Path=/auth-ws/**
+            - Method=Post
+
+        - id: add-log
+          uri: lb://add-log
+          predicates:
+            - Path=/add-log/**
+            - Method=Post
+
+        - id: query-logs
+          uri: lb://query-logs
+          predicates:
+            - Path=/query-logs/**
+            - Method=Get
+
+
+#logging:
+#  level:
+#    root: debug
