@@ -9,7 +9,7 @@ import com.meysam.logcollector.addlog.service.api.LogService;
 import com.meysam.logcollector.common.exception.exceptions.BusinessException;
 import com.meysam.logcollector.common.model.dto.LogDto;
 import com.meysam.logcollector.common.model.entity.LogEntity;
-import com.meysam.logcollector.common.model.enums.LogStatus;
+import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,7 +75,7 @@ public class LogServiceImpl implements LogService {
            logDto.setProcessed(true);
 
             try {
-                logEntity = distinctLogService.addLogToDbInDistinctTransaction(addLogRequestDto,LogStatus.SENT);
+                logEntity = distinctLogService.addLogToDbInDistinctTransaction(addLogRequestDto,OutboxEventStatus.SENT);
                 logDto.setId(logEntity.getId());
                 try {
                     //to get consumed by syncer, and then be added to query database:
@@ -83,7 +83,7 @@ public class LogServiceImpl implements LogService {
                 }catch (Exception kafkaException){
                     log.error("we couldn't release NEW_SENT_LOG_ADDED event and sync the sent, and added log:{} at time:{} due to kafka exception:{} we are going to persist it with SENT_ADDED_NOT_SYNCED status",logDto,System.currentTimeMillis(),kafkaException);
                     try {
-                        distinctLogService.updateLogStatusInDistinctTransaction(logEntity.getId() , LogStatus.SENT_ADDED_NOT_SYNCED);
+                        distinctLogService.updateLogStatusInDistinctTransaction(logEntity.getId() , OutboxEventStatus.SENT_NOT_SYNCED);
                     }catch (Exception dbException){
                         log.error("After sending log to 3rd party service, we tried to send NEW_SENT_LOG_ADDED event to sync log in syncer, but not only kafka had exception, but also DB had exception:{}, time:{} , logId;{}",dbException,System.currentTimeMillis(),logEntity.getId());
                     }
@@ -102,7 +102,7 @@ public class LogServiceImpl implements LogService {
         else{
             logDto.setProcessed(false);
             try {
-                logEntity = distinctLogService.addLogToDbInDistinctTransaction(addLogRequestDto,LogStatus.NOT_SENT);
+                logEntity = distinctLogService.addLogToDbInDistinctTransaction(addLogRequestDto, OutboxEventStatus.UNSENT);
             }catch (BusinessException e){
                 try {
                     //for further process and persistent:

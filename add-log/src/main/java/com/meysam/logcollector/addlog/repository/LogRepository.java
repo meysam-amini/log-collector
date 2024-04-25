@@ -1,7 +1,7 @@
 package com.meysam.logcollector.addlog.repository;
 
 import com.meysam.logcollector.common.model.entity.LogEntity;
-import com.meysam.logcollector.common.model.enums.LogStatus;
+import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import ir.pasargad.logcollector.common.dao.repository.BaseRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +16,5 @@ public interface LogRepository extends BaseRepository<LogEntity> {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Modifying
     @Query("update LogEntity l set l.status=:status where l.id=:id")
-    int updateStatusInDistinctTransaction(long id, LogStatus status);
+    int updateStatusInDistinctTransaction(long id, OutboxEventStatus status);
 }

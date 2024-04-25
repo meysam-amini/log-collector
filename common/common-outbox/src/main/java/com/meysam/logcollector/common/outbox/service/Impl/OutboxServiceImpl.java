@@ -1,7 +1,7 @@
 package com.meysam.logcollector.common.outbox.service.Impl;
 
 import com.meysam.logcollector.common.outbox.model.entity.OutBox;
-import com.meysam.logcollector.common.outbox.model.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import com.meysam.logcollector.common.outbox.repository.OutboxRepository;
 import com.meysam.logcollector.common.outbox.service.api.OutboxService;
 import com.meysam.logcollector.common.outbox.utils.PaginationUtils;

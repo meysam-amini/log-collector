@@ -1,7 +1,7 @@
 package com.meysam.logcollector.common.outbox.service.api;
 
 import com.meysam.logcollector.common.outbox.model.entity.OutBox;
-import com.meysam.logcollector.common.outbox.model.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

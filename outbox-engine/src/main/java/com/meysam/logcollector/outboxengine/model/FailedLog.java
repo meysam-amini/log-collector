@@ -1,6 +1,5 @@
 package com.meysam.logcollector.outboxengine.model;
 
-import com.meysam.logcollector.common.model.enums.LogStatus;
 import com.meysam.logcollector.common.model.enums.LogType;
 import com.meysam.logcollector.common.outbox.model.entity.OutBox;
 import jakarta.persistence.Entity;

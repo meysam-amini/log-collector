@@ -1,11 +1,11 @@
-package com.meysam.logcollector.common.outbox.model.enums;
+package com.meysam.logcollector.common.model.enums;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public enum OutboxEventStatus {
-    SENT,SENDING,UNSENT,RETRY_LIMIT_EXCEEDED;
+    SENT,SENDING,UNSENT,RETRY_LIMIT_EXCEEDED,SENT_NOT_SYNCED;
 
     public static List<OutboxEventStatus> getAllValidStatusesForSending(){
         return new ArrayList<>(Arrays.asList(UNSENT));

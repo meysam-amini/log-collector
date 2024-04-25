@@ -4,9 +4,8 @@ import com.meysam.logcollector.addlog.repository.LogRepository;
 import com.meysam.logcollector.addlog.service.api.DistinctLogService;
 import com.meysam.logcollector.common.exception.exceptions.BusinessException;
 import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
-import com.meysam.logcollector.common.model.dto.AddLogResponseDto;
 import com.meysam.logcollector.common.model.entity.LogEntity;
-import com.meysam.logcollector.common.model.enums.LogStatus;
+import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class DistinctLogServiceImpl implements DistinctLogService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public LogEntity addLogToDbInDistinctTransaction(AddLogRequestDto addLogRequestDto, LogStatus status) {
+    public LogEntity addLogToDbInDistinctTransaction(AddLogRequestDto addLogRequestDto, OutboxEventStatus status) {
         try {
             LogEntity logEntity = LogEntity.builder()
                     .body(addLogRequestDto.body())
@@ -40,7 +39,7 @@ public class DistinctLogServiceImpl implements DistinctLogService {
     }
 
     @Override
-    public int updateLogStatusInDistinctTransaction(long id, LogStatus status) {
+    public int updateLogStatusInDistinctTransaction(long id, OutboxEventStatus status) {
         return logRepository.updateStatusInDistinctTransaction(id,status);
     }
 }

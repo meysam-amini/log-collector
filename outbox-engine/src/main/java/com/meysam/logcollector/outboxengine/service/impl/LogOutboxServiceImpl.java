@@ -1,6 +1,6 @@
 package com.meysam.logcollector.outboxengine.service.impl;
 
-import com.meysam.logcollector.common.outbox.model.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import com.meysam.logcollector.common.outbox.service.Impl.OutboxServiceImpl;
 import com.meysam.logcollector.outboxengine.model.FailedLog;
 import com.meysam.logcollector.outboxengine.repository.FailedLogRepository;

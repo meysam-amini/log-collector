@@ -1,11 +1,9 @@
-package com.meysam.logcollector.common.outbox.model.entity;
+package com.meysam.logcollector.common.model.entity;
 
 import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
@@ -14,8 +12,8 @@ import java.util.Date;
 @MappedSuperclass
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class OutBox {
+@NoArgsConstructor@SuperBuilder
+public class OutBoxBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
