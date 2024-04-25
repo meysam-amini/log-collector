@@ -5,6 +5,4 @@ import com.meysam.logcollector.common.outbox.service.api.OutboxService;
 
 public interface LogOutboxService extends OutboxService<LogEntity> {
 
-    void sendLogToExternalServiceFromOutbox(LogEntity logEntity);
-
 }

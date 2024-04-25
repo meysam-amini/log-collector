@@ -39,8 +39,7 @@ public class LogOutboxServiceImpl extends OutboxServiceImpl<LogEntity> implement
         sendLogToExternalServiceFromOutbox(failedLog);
     }
 
-    @Override
-    public void sendLogToExternalServiceFromOutbox(LogEntity logEntity) {
+    private void sendLogToExternalServiceFromOutbox(LogEntity logEntity) {
         ResponseEntity<String> response =  externalService.sendLogToExternalApi(new AddLogRequestDto(logEntity.getBody(),
                 logEntity.getServiceName(),
                 logEntity.getRequestId(),
