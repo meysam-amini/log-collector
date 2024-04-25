@@ -26,7 +26,7 @@ public class LogsConsumer {
 
     private final LogAddService logAddService;
 
-    @KafkaListener(topics ="${spring.kafka.topics.new-log}", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics ="${spring.kafka.topics.new-log-added}", containerFactory = "kafkaListenerContainerFactory")
     public void handleNewLogs(List<ConsumerRecord<String, LogDto>> records) {
         List<IndexedLog> indexedLogs = records.stream()
                 .map(ConsumerRecord::value)
