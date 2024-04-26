@@ -1,8 +1,10 @@
-#Log-Collector
+# Log-Collector
 
-###A scenario of microservices on Spring Cloud, for seamlessly gathering logs and sending them to third-parties. The CQRS pattern is used for distinguish between add-log apis and query-logs microservice. There is a syncer service, called sync-logs to add successfully sent logs to Elasticsearch, which gives us full text search on logs from query-logs service.
+### A scenario of microservices on Spring Cloud, for seamlessly gathering logs and sending them to third-parties. The CQRS pattern is used for distinguish between add-log apis and query-logs microservice. There is a syncer service, called sync-logs to add successfully sent logs to Elasticsearch, which gives us full text search on logs from query-logs service.
 
-##Tech Stack
+---
+
+## Tech Stack
 * JDK 17
 * Spring-Boot 3.2.0
 * Spring-Cloud 23.0.0
@@ -12,6 +14,9 @@
 * Kafka 7.4
 * Keycloak 21.1.1
 * Elasticsearch 8.3.3
+
+---
+
 
 ## Architecture
 The system contains following modules:
