@@ -30,7 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KeycloakServiceImpl implements KeycloakService {
 
-    @Qualifier(value = "SimpleRestTemplate")
+    @Qualifier(value = "simpleRestTemplate")
     @Autowired//for qualifier(lombok doesn't apply @Qualifier on constructor)
     private RestTemplate restTemplate;
 //    private final MemberService userService;

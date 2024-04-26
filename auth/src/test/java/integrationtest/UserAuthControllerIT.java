@@ -5,6 +5,7 @@ import com.meysam.logcollector.common.model.dto.LoginResponseDto;
 import com.meysam.logcollector.common.model.dto.RegisterUserRequestDto;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -17,18 +18,17 @@ import reactor.core.publisher.Mono;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {com.meysam.logcollector.auth.controller.UserAuthController.class,
+                com.meysam.logcollector.auth.service.impl.KeycloakServiceImpl.class})
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserAuthControllerIT {
 
-    @Autowired
-    private WebApplicationContext context;
-
     private WebClient webClient;
-    private int port;
+    private int port=8091;
 
     @BeforeAll
-    public void setUp() {
-        port = context.getEnvironment().getProperty("local.server.port", Integer.class);
+    public  void setUp() {
+//        port = context.getEnvironment().getProperty("local.server.port", Integer.class);
         webClient = WebClient.create();
     }
 
