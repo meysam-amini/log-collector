@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @NoArgsConstructor
-public class CustomRetrier implements Retryer {
+public class CustomRetryer implements Retryer {
 
     private int retryMaxAttempt=5;
 
@@ -18,7 +18,7 @@ public class CustomRetrier implements Retryer {
     private int attempt = 1;
 
 
-    public CustomRetrier(int retryMaxAttempt, Long retryInterval) {
+    public CustomRetryer(int retryMaxAttempt, Long retryInterval) {
         this.retryMaxAttempt = retryMaxAttempt;
         this.retryInterval = retryInterval;
     }
@@ -40,6 +40,6 @@ public class CustomRetrier implements Retryer {
 
     @Override
     public Retryer clone() {
-        return new CustomRetrier(5, 400L);
+        return new CustomRetryer(5, 400L);
     }
 }
