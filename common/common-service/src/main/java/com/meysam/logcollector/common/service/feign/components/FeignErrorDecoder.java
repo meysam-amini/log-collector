@@ -14,9 +14,9 @@ public class FeignErrorDecoder implements ErrorDecoder {
     public Exception decode(String s, Response response) {
         Exception exception = defaultErrorDecoder.decode(s, response);
 
-        if(exception instanceof RetryableException){
-            return exception;
-        }
+//        if(exception instanceof RetryableException){
+//            return exception;
+//        }
 
 
         if(response.status() == 500){

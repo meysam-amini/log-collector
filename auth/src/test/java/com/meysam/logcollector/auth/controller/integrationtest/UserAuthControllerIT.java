@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -20,7 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
         properties = "spring.profiles.active=test")
-class UserAuthControllerTest {
+//beforeAll() must be static unless the test class is annotated with:
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class UserAuthControllerIT {
     private WebClient webClient;
     private int port=8091;
 

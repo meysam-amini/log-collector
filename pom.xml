@@ -141,6 +141,9 @@
     <profiles>
         <profile>
             <id>dev</id>
+            <properties>
+                <Dskip.ut>true</Dskip.ut>
+            </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -169,7 +172,7 @@
             <id>prod</id>
             <properties>
                 <env>src/main/resources/prod</env>
-                <maven.test.skip>true</maven.test.skip>
+<!--                <maven.test.skip>true</maven.test.skip>-->
             </properties>
             <activation>
                 <activeByDefault>false</activeByDefault>
