@@ -4,8 +4,9 @@ import feign.Response;
 import feign.RetryableException;
 import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
-@ComponentScan
+@Component
 public class FeignErrorDecoder implements ErrorDecoder {
 
     private final ErrorDecoder defaultErrorDecoder = new Default();
