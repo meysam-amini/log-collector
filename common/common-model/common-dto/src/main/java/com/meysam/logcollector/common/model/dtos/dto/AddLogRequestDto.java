@@ -1,4 +1,4 @@
-package com.meysam.logcollector.common.model.dto;
+package com.meysam.logcollector.common.model.dtos.dto;
 
 import com.meysam.logcollector.common.model.enums.LogType;
 

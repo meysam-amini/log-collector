@@ -1,4 +1,4 @@
-package com.meysam.logcollector.common.model.enums;
+package com.meysam.logcollector.common.model.dtos.enums;
 
 import java.util.ArrayList;
 import java.util.Arrays;

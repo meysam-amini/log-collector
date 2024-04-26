@@ -1,6 +1,6 @@
-package com.meysam.logcollector.common.model.entity;
+package com.meysam.logcollector.common.model.entities.entity;
 
-import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.dtos.enums.OutboxEventStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

@@ -1,4 +1,4 @@
-package com.meysam.logcollector.common.model.entity;
+package com.meysam.logcollector.common.model.entities.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

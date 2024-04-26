@@ -1,4 +1,4 @@
-package com.meysam.logcollector.common.model.dto;
+package com.meysam.logcollector.common.model.dtos.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

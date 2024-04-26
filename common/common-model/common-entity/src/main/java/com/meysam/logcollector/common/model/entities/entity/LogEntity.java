@@ -1,4 +1,4 @@
-package com.meysam.logcollector.common.model.entity;
+package com.meysam.logcollector.common.model.entities.entity;
 
 import com.meysam.logcollector.common.model.enums.LogType;
 import jakarta.persistence.Entity;
