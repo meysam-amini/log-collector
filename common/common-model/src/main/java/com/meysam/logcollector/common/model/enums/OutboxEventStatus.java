@@ -22,4 +22,7 @@ public enum OutboxEventStatus {
     public static List<OutboxEventStatus> getAllValidStatusesForUnsent(){
         return new ArrayList<>(Arrays.asList(SENDING));
     }
+    public static List<OutboxEventStatus> getAllValidStatusesForSentNotSynced(){
+        return new ArrayList<>(Arrays.asList(SENT));
+    }
 }
