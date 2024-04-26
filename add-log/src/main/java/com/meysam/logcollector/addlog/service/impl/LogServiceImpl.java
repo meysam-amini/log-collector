@@ -1,14 +1,14 @@
 package com.meysam.logcollector.addlog.service.impl;
 
 import com.meysam.logcollector.addlog.service.api.DistinctLogService;
-import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
-import com.meysam.logcollector.common.model.dto.AddLogResponseDto;
 import com.meysam.logcollector.addlog.repository.LogRepository;
 import com.meysam.logcollector.addlog.service.api.LogService;
 import com.meysam.logcollector.common.exception.exceptions.BusinessException;
-import com.meysam.logcollector.common.model.dto.LogDto;
-import com.meysam.logcollector.common.model.entity.LogEntity;
-import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
+import com.meysam.logcollector.common.model.dtos.dto.AddLogResponseDto;
+import com.meysam.logcollector.common.model.dtos.dto.LogDto;
+import com.meysam.logcollector.common.model.dtos.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.entities.entity.LogEntity;
 import com.meysam.logcollector.common.service.feign.api.ExternalServiceFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class LogServiceImpl implements LogService {
     private final ExternalServiceFeignClient externalService;
     private final DistinctLogService distinctLogService;
     private final LogRepository logRepository;
-    private final KafkaTemplate<String,LogDto> kafkaTemplate;
+    private final KafkaTemplate<String, LogDto> kafkaTemplate;
 
     @Value("${spring.kafka.topics.new-log}")
     private String NEW_LOG_TOPIC;
@@ -76,7 +76,7 @@ public class LogServiceImpl implements LogService {
            logDto.setProcessed(true);
 
             try {
-                logEntity = distinctLogService.addLogToDbInDistinctTransaction(addLogRequestDto,OutboxEventStatus.SENT);
+                logEntity = distinctLogService.addLogToDbInDistinctTransaction(addLogRequestDto, OutboxEventStatus.SENT);
                 logDto.setId(logEntity.getId());
                 try {
                     //to get consumed by syncer, and then be added to query database:

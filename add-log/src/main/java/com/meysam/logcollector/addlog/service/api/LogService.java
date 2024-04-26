@@ -1,8 +1,8 @@
 package com.meysam.logcollector.addlog.service.api;
 
-import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
-import com.meysam.logcollector.common.model.dto.AddLogResponseDto;
-import com.meysam.logcollector.common.model.dto.LogDto;
+import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
+import com.meysam.logcollector.common.model.dtos.dto.AddLogResponseDto;
+import com.meysam.logcollector.common.model.dtos.dto.LogDto;
 import org.springframework.http.ResponseEntity;
 
 public interface LogService {

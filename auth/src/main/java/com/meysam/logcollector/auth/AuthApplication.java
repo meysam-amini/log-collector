@@ -12,7 +12,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.meysam.logcollector.*.*.*"})
-@EntityScan(basePackages = "com.meysam.logcollector.*.*.*")
+@EntityScan(basePackages = "com.meysam.logcollector.common.model.entities.entity")
 public class AuthApplication {
 
     public static void main(String []args){

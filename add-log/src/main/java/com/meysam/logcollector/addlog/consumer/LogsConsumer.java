@@ -1,7 +1,7 @@
 package com.meysam.logcollector.addlog.consumer;
 
 import com.meysam.logcollector.addlog.service.api.LogService;
-import com.meysam.logcollector.common.model.dto.LogDto;
+import com.meysam.logcollector.common.model.dtos.dto.LogDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

@@ -1,6 +1,6 @@
 package com.meysam.logcollector.common.model.dtos.dto;
 
-import com.meysam.logcollector.common.model.enums.LogType;
+import com.meysam.logcollector.common.model.dtos.enums.LogType;
 import lombok.*;
 
 @AllArgsConstructor

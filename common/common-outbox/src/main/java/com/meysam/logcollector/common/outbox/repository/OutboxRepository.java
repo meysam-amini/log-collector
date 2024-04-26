@@ -1,8 +1,8 @@
 package com.meysam.logcollector.common.outbox.repository;
 
-import com.meysam.logcollector.common.model.entity.OutBoxableBaseEntity;
-import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
-import ir.pasargad.logcollector.common.dao.repository.BaseRepository;
+import com.meysam.logcollector.common.model.dtos.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.entities.entity.OutBoxableBaseEntity;
+import com.meysam.logcollector.common.dao.repository.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;

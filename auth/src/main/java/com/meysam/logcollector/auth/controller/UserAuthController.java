@@ -2,9 +2,9 @@ package com.meysam.logcollector.auth.controller;
 
 import com.meysam.logcollector.auth.model.enums.MemberLevel;
 import com.meysam.logcollector.auth.service.api.KeycloakService;
-import com.meysam.logcollector.common.model.dto.LoginRequestDto;
-import com.meysam.logcollector.common.model.dto.LoginResponseDto;
-import com.meysam.logcollector.common.model.dto.RegisterUserRequestDto;
+import com.meysam.logcollector.common.model.dtos.dto.LoginRequestDto;
+import com.meysam.logcollector.common.model.dtos.dto.LoginResponseDto;
+import com.meysam.logcollector.common.model.dtos.dto.RegisterUserRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

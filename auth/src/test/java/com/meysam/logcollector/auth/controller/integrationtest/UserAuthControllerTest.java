@@ -1,7 +1,7 @@
 package com.meysam.logcollector.auth.controller.integrationtest;
 
-import com.meysam.logcollector.common.model.dto.LoginRequestDto;
-import com.meysam.logcollector.common.model.dto.LoginResponseDto;
+import com.meysam.logcollector.common.model.dtos.dto.LoginRequestDto;
+import com.meysam.logcollector.common.model.dtos.dto.LoginResponseDto;
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

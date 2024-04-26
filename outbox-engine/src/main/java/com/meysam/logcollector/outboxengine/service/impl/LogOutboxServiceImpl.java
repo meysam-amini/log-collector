@@ -1,9 +1,9 @@
 package com.meysam.logcollector.outboxengine.service.impl;
 
-import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
-import com.meysam.logcollector.common.model.dto.LogDto;
-import com.meysam.logcollector.common.model.entity.LogEntity;
-import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
+import com.meysam.logcollector.common.model.dtos.dto.LogDto;
+import com.meysam.logcollector.common.model.dtos.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.entities.entity.LogEntity;
 import com.meysam.logcollector.common.outbox.service.Impl.OutboxServiceImpl;
 import com.meysam.logcollector.common.service.feign.api.ExternalServiceFeignClient;
 import com.meysam.logcollector.outboxengine.repository.FailedLogRepository;

@@ -1,8 +1,8 @@
 package com.meysam.logcollector.addlog.repository;
 
-import com.meysam.logcollector.common.model.entity.LogEntity;
-import com.meysam.logcollector.common.model.enums.OutboxEventStatus;
-import ir.pasargad.logcollector.common.dao.repository.BaseRepository;
+import com.meysam.logcollector.common.model.dtos.enums.OutboxEventStatus;
+import com.meysam.logcollector.common.model.entities.entity.LogEntity;
+import com.meysam.logcollector.common.dao.repository.BaseRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

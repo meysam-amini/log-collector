@@ -1,7 +1,7 @@
 package com.meysam.logcollector.synclogs.consumer;
 
 import com.meysam.logcollector.common.elastic.model.IndexedLog;
-import com.meysam.logcollector.common.model.dto.LogDto;
+import com.meysam.logcollector.common.model.dtos.dto.LogDto;
 import com.meysam.logcollector.synclogs.service.api.LogAddService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

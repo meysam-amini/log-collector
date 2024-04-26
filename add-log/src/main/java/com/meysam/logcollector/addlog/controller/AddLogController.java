@@ -1,8 +1,8 @@
 package com.meysam.logcollector.addlog.controller;
 
-import com.meysam.logcollector.common.model.dto.AddLogRequestDto;
-import com.meysam.logcollector.common.model.dto.AddLogResponseDto;
 import com.meysam.logcollector.addlog.service.api.LogService;
+import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
+import com.meysam.logcollector.common.model.dtos.dto.AddLogResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
