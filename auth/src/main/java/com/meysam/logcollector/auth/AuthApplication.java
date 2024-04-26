@@ -8,12 +8,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.meysam.logcollector.*.*.*"})
-@EnableJpaRepositories(basePackages = "com.meysam.logcollector.*.*.*")
 @EntityScan(basePackages = "com.meysam.logcollector.*.*.*")
 public class AuthApplication {
 

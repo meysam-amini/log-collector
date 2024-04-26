@@ -3,3 +3,4 @@ spring:
     config:
       uri: http://localhost:8012
       name: config-server
+      profile: test

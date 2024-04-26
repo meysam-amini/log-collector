@@ -167,9 +167,14 @@
         </profile>
         <profile>
             <id>prod</id>
+            <properties>
+                <env>src/main/resources/prod</env>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
+
             <build>
                 <resources>
                     <resource>

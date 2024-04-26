@@ -24,11 +24,6 @@
         </dependency>
         <dependency>
             <groupId>com.meysam.logcollector.common</groupId>
-            <artifactId>common-dao</artifactId>
-            <version>1.2-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.meysam.logcollector.common</groupId>
             <artifactId>common-exception</artifactId>
             <version>1.2-SNAPSHOT</version>
         </dependency>
@@ -36,6 +31,18 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20220320</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dasniko</groupId>
+            <artifactId>testcontainers-keycloak</artifactId>
+            <version>3.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>1.19.7</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
