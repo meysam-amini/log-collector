@@ -62,6 +62,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public ResponseEntity<AddLogResponseDto> sendLogToExternalService(AddLogRequestDto addLogRequestDto) {
+        validateLogRequestDto(addLogRequestDto);
         ResponseEntity<String> response =  externalService.sendLogToExternalApi(addLogRequestDto);
         LogEntity logEntity;
         LogDto logDto = LogDto.builder()
