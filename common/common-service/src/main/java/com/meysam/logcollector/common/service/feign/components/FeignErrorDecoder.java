@@ -6,7 +6,7 @@ import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class FeignErrorDecoder implements ErrorDecoder {
 
     private final ErrorDecoder defaultErrorDecoder = new Default();
