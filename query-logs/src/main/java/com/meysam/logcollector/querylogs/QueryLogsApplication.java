@@ -16,7 +16,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"com.meysam.logcollector.*.*.*"})
 @EnableJpaRepositories(basePackages = "com.meysam.logcollector.*.*.*")
 @EntityScan(basePackages = "com.meysam.logcollector.*.*.*")
-@EnableFeignClients(basePackages = {"com.meysam.logcollector.common.service.feinclients.*"})
 public class QueryLogsApplication {
 
     public static void main(String []args){
