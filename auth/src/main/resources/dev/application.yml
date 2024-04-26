@@ -1,6 +1,7 @@
 # a random port number will be assigned for each instance of app:
 server:
-  port: ${PORT:0}
+  port: 8091
+#  ${PORT:0}
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

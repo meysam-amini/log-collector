@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.meysam.logcollector</groupId>
-    <artifactId>service-registery</artifactId>
+    <artifactId>discovery-service</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

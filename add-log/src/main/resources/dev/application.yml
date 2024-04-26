@@ -1,7 +1,8 @@
 
 
 server:
-  port: ${PORT:0}
+  port: 8090
+#  ${PORT:0}
 
 eureka:
   client:
