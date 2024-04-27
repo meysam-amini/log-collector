@@ -28,38 +28,40 @@ public class LogsConsumer {
 
     @KafkaListener(topics ="${spring.kafka.topics.new-log-added}", containerFactory = "kafkaListenerContainerFactory")
     public void handleNewLogs(List<ConsumerRecord<String, LogDto>> records) {
-        List<IndexedLog> indexedLogs = records.stream()
-                .map(ConsumerRecord::value)
-                .map(this::mapToIndexedLog)
-                .toList();
-        executor.submit(new LogsHandler(indexedLogs));
+        executor.submit(new LogsHandler(records));
     }
 
 
     private class LogsHandler implements Runnable{
 
-        private List<IndexedLog> indexedLogs;
+        private List<ConsumerRecord<String, LogDto>> records;
 
-        public LogsHandler(List<IndexedLog> indexedLogs){
-            this.indexedLogs=indexedLogs;
+        public LogsHandler(List<ConsumerRecord<String, LogDto>> records){
+            this.records =records;
         }
         @Override
         public void run() {
 
+            List<IndexedLog> indexedLogs = records.parallelStream()
+                    .map(ConsumerRecord::value)
+                    .map(this::mapToIndexedLog)
+                    .toList();
+
             logAddService.addAll(indexedLogs);
 
         }
+        private IndexedLog mapToIndexedLog(LogDto logDto){
+
+            return IndexedLog.builder()
+                    .body(logDto.getBody())
+                    .processed(logDto.isProcessed())
+                    .requestId(logDto.getRequestId())
+                    .serviceName(logDto.getServiceName())
+                    .type(logDto.getType().name())
+                    .build();
+        }
+
     }
 
 
-    private IndexedLog mapToIndexedLog(LogDto logDto){
-
-        return IndexedLog.builder()
-                .body(logDto.getBody())
-                .processed(logDto.isProcessed())
-                .requestId(logDto.getRequestId())
-                .serviceName(logDto.getServiceName())
-                .type(logDto.getType().name())
-                .build();
-    }
 }
