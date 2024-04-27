@@ -7,6 +7,8 @@ eureka:
       defaultZone: http://localhost:8010/eureka
 
 spring:
+  main:
+    web-application-type: reactive
   application:
     name: api-gateway
 
