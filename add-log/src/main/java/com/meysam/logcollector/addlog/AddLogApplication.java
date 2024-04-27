@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.retry.annotation.EnableRetry;
 
 @SpringBootApplication
@@ -19,6 +20,7 @@ import org.springframework.retry.annotation.EnableRetry;
 @EnableJpaRepositories(basePackages = "com.meysam.logcollector.*.*")
 @EntityScan(basePackages = "com.meysam.logcollector.*.*")
 @EnableFeignClients(basePackages = {"com.meysam.logcollector.common.*.*.*"})
+@EnableMongoRepositories(basePackages = "com.meysam.logcollector.addlog.repository")
 @EnableRetry
 public class AddLogApplication {
 
