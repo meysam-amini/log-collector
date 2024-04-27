@@ -35,7 +35,7 @@ class UserAuthControllerIT {
     static GenericContainer<?> redis =
             new GenericContainer<>(DockerImageName.parse("redis:6")).withExposedPorts(6379);
 
-    static final KeycloakContainer keycloak=new KeycloakContainer().withRealmImportFile("keycloak/realm-export.json");
+    static final KeycloakContainer keycloak=new KeycloakContainer().withRealmImportFile("keycloak/keycloak-realm-export.json");
 
     @BeforeAll
     void beforeAll(){
