@@ -28,9 +28,6 @@
         <module>query-logs</module>
         <module>sync-logs</module>
         <module>outbox-engine</module>
-        <module>service-discovery</module>
-        <module>gateway</module>
-        <module>config-server</module>
         <module>common</module>
         <module>auth</module>
         <module>external-services</module>
@@ -52,14 +49,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

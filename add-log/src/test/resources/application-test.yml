@@ -1,0 +1,46 @@
+server:
+  port: 8090
+spring:
+  security:
+    enabled: false
+  application:
+    name: add-log
+  #  ############## DATA SOURCE ####################
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+######################### SECURITY #####################
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://127.0.0.1:8080/realms/meysam
+#      client:
+#        registration:
+#          keycloak:
+#            client-id: spring-cloud-microservices
+#            #            authorization-grant-type: password
+#            scope: openid
+#        provider:
+#          keycloak:
+#            issuer-uri: http://127.0.0.1:8080/realms/meysam
+#            user-name-attribute: preferred_username
+
+
+

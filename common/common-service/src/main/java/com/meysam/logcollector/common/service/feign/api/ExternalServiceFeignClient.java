@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "external-ws",fallbackFactory = ExternalServiceFallBackFactory.class, configuration = {CustomRetryer.class, FeignErrorDecoder.class})
+@FeignClient(name = "external-service",url = "http://localhost:8092",fallbackFactory = ExternalServiceFallBackFactory.class, configuration = {CustomRetryer.class, FeignErrorDecoder.class})
 public interface ExternalServiceFeignClient {
 
     @PostMapping("/test")

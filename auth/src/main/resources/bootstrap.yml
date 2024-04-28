@@ -1,6 +1,0 @@
-spring:
-  cloud:
-    config:
-      name: config-server
-      uri: http://localhost:8012
-#      uri: http://localhost:8012/${spring.cloud.config.name}/${spring.profiles.active}

@@ -1,15 +1,79 @@
 server:
   port: 8090
-#  ${PORT:0}
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8010/eureka
-
 spring:
   application:
     name: add-log
+##################### KAFKA ############################
+  kafka:
+    topics:
+      new-log: new-log
+      new-log-added: new-log-added
+      new-log-add-failed: new-log-add-failed
+      new-sent-log-add-failed: new-sent-log-add-failed
+      not-sent-log-add-failed: not-sent-log-add-failed
+    bootstrap-servers: localhost:29092
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringSeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      #      buffer default size is 32 MB
+      #      buffer:
+      #        memory: 1048576
+      retries: 0
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      session-timeout: 30000
+      enable-auto-commit: true
+      #allows a consumer to commit the offsets of messages automatically.
+      #If enabled, the consumer will commit offsets received from the broker.
+      auto-commit-interval: 1000
+      group-id: logs-syncer
+      #determines what action the consumer should take if there are no committed offsets
+      #for the consumer group or if the consumer is unable to connect to the last committed offset.
+      auto-offset-reset: earliest
+      max-poll-records: 1000
+    listener:
+      #related to number of partitions, so if we scale up number of instances,
+      #we should increase number of partitions first
+      concurrency: 2
+  #  ############## DATA SOURCE ####################
+  #  h2:
+  #    console:
+  #      enabled: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    #    url: jdbc:h2:mem:testdb
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    username: admin
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+######################### SECURITY #####################
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8080/realms/meysam
+      client:
+        registration:
+          keycloak:
+            client-id: spring-cloud-microservices
+            #            authorization-grant-type: password
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://127.0.0.1:8080/realms/meysam
+            user-name-attribute: preferred_username
 
 
 

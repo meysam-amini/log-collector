@@ -1,7 +1,9 @@
 package com.meysam.logcollector.common.exception.controllerAdvice;
 
 import com.meysam.logcollector.common.exception.exceptions.BusinessException;
+import com.meysam.logcollector.common.exception.exceptions.DataBaseException;
 import com.meysam.logcollector.common.exception.exceptions.KeycloakException;
+import com.meysam.logcollector.common.exception.exceptions.ServicesException;
 import com.meysam.logcollector.common.exception.messagesLoader.LocaleMessageSourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +60,18 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<String>  httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException exception){
         log.error("handling HttpRequestMethodNotSupportedException at time :{} , exception is : {}",System.currentTimeMillis(),exception);
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(messageSourceService.getMessage("WRONG_HTTP_METHOD"));
+    }
+
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<String> servicesException(DataBaseException exception){
+        log.error("handling ServicesException at time :{} , exception is : {}",System.currentTimeMillis(),exception);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSourceService.getMessage(exception.getMessage()));
+    }
+
+    @ExceptionHandler(ServicesException.class)
+    public ResponseEntity<String> servicesException(ServicesException exception){
+        log.error("handling ServicesException at time :{} , exception is : {}",System.currentTimeMillis(),exception);
+        return ResponseEntity.status(exception.getHttpStatusCode()).body(messageSourceService.getMessage(exception.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)

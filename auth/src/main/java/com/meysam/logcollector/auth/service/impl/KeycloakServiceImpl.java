@@ -39,8 +39,8 @@ public class KeycloakServiceImpl implements KeycloakService {
     private String KEYCLOAK_GET_TOKEN_URL;
     @Value("${keycloak.register.user.url}")
     private String KEYCLOAK_REGISTER_USER_URL;
-    @Value("${spring.security.oauth2.client.registration.keycloak.client-id}")
-    private String CLIENT_ID;
+//    @Value("${spring.security.oauth2.client.registration.keycloak.client-id}")
+    private String CLIENT_ID="spring-cloud-microservices";
     @Value("${oauth.client.secret}")
     private String CLIENT_SECRET;
     private String PASSWORD_GRANT_TYPE = "password";

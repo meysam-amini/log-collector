@@ -4,6 +4,8 @@ import com.meysam.logcollector.addlog.service.api.DistinctLogService;
 import com.meysam.logcollector.addlog.repository.LogRepository;
 import com.meysam.logcollector.addlog.service.api.LogService;
 import com.meysam.logcollector.common.exception.exceptions.BusinessException;
+import com.meysam.logcollector.common.exception.exceptions.DataBaseException;
+import com.meysam.logcollector.common.exception.exceptions.ServicesException;
 import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
 import com.meysam.logcollector.common.model.dtos.dto.AddLogResponseDto;
 import com.meysam.logcollector.common.model.dtos.dto.LogDto;
@@ -13,6 +15,7 @@ import com.meysam.logcollector.common.service.feign.api.ExternalServiceFeignClie
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -63,7 +66,14 @@ public class LogServiceImpl implements LogService {
     @Override
     public ResponseEntity<AddLogResponseDto> sendLogToExternalService(AddLogRequestDto addLogRequestDto) {
         validateLogRequestDto(addLogRequestDto);
-        ResponseEntity<String> response =  externalService.sendLogToExternalApi(addLogRequestDto);
+        ResponseEntity<String> response=null;
+        try {
+            response = externalService.sendLogToExternalApi(addLogRequestDto);
+        }catch (Exception e){
+            log.error("Feign connection error at time :{}",System.currentTimeMillis(),e);
+            throw new ServicesException("EXTERNAL_SERVICE_PROBLEM", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         LogEntity logEntity;
         LogDto logDto = LogDto.builder()
                 .body(addLogRequestDto.body())
@@ -89,7 +99,7 @@ public class LogServiceImpl implements LogService {
                         log.error("After sending log to 3rd party service, we tried to send NEW_SENT_LOG_ADDED event to sync log in syncer, but not only kafka had exception, but also DB had exception:{}, time:{} , logId;{}",dbException,System.currentTimeMillis(),logEntity.getId());
                     }
                 }
-            }catch (BusinessException e){
+            }catch (DataBaseException e){
                 try {
                     //for further process and persistent:
                     kafkaTemplate.send(NEW_SENT_LOG_ADD_FAILED,logDto);
