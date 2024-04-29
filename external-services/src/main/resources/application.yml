@@ -2,11 +2,6 @@ server:
   port: 8092
 #  ${PORT:0}
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8010/eureka
-
 spring:
   application:
     name: external-ws
