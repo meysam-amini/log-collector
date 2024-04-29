@@ -24,12 +24,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -62,8 +64,8 @@ class LogServiceImplTest {
     public void testAddLogToQueue_Given_KafkaIsOk_WeWillGet200() {
         AddLogRequestDto requestDto = new AddLogRequestDto("test message", "service1", "requestId123", LogType.INFO);
 
-        // as we have set the kafka's needed property(topic) it won't generate null pointer error
-        // and kafkaTemplate.send() method would be ok
+        // kafkaTemplate.send() method would be ok
+        Mockito.when(kafkaTemplate.send(anyString(), any(LogDto.class))).thenReturn(new CompletableFuture<>());
 
         AddLogResponseDto responseDto = logService.addLogToQueue(requestDto);
         Assertions.assertTrue(responseDto.processed());

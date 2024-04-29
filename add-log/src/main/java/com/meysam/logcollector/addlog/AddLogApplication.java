@@ -13,7 +13,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.retry.annotation.EnableRetry;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.meysam.logcollector.*.*"
         ,"com.meysam.logcollector.*.*.*"})
 @EnableJpaRepositories(basePackages = "com.meysam.logcollector.*.*")

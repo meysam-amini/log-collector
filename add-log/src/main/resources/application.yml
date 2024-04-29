@@ -13,15 +13,15 @@ spring:
       not-sent-log-add-failed: not-sent-log-add-failed
     bootstrap-servers: localhost:29092
     producer:
-      key-deserializer: org.apache.kafka.common.serialization.StringSeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.meysam.logcollector.addlog.config.KafkaSerializerConfig
       #      buffer default size is 32 MB
       #      buffer:
       #        memory: 1048576
       retries: 0
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: com.meysam.logcollector.addlog.config.KafkaDeserializerConfig
       session-timeout: 30000
       enable-auto-commit: true
       #allows a consumer to commit the offsets of messages automatically.

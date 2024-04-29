@@ -65,13 +65,14 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public ResponseEntity<AddLogResponseDto> sendLogToExternalService(AddLogRequestDto addLogRequestDto) {
+        // TODO: 29.04.24 - shouldn't validate from addLogToQueue method
         validateLogRequestDto(addLogRequestDto);
         ResponseEntity<String> response=null;
         try {
             response = externalService.sendLogToExternalApi(addLogRequestDto);
         }catch (Exception e){
             log.error("Feign connection error at time :{}",System.currentTimeMillis(),e);
-            throw new ServicesException("EXTERNAL_SERVICE_PROBLEM", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("");
         }
 
         LogEntity logEntity;
@@ -122,7 +123,7 @@ public class LogServiceImpl implements LogService {
                     log.error("we couldn't release event not-sent-log-add-failed to kafka after failing to add a not sent log:{}, to DB at time:{}, exception:{}",logDto,System.currentTimeMillis(),e);
                 }
             }
-            throw new BusinessException("LOG_HAS_NOT_BEEN_SENT_TO_3RDPARTY_BUT_WE_WILL_TRY_IT_LATER");
+            throw new ServicesException("LOG_HAS_NOT_BEEN_SENT_TO_3RDPARTY_BUT_WE_WILL_TRY_IT_LATER",HttpStatus.SERVICE_UNAVAILABLE);
         }
 
     }

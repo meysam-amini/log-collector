@@ -37,7 +37,9 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
-
+    networks:
+      - meysam-docker
+      -
   kafka:
     image: confluentinc/cp-kafka:7.4.0
     depends_on:
@@ -51,6 +53,8 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - meysam-docker
 
 #  keycloak:
 #      container_name: keycloak
@@ -84,14 +88,8 @@ services:
     container_name: elasticsearch
     hostname: elasticsearch
     restart: unless-stopped
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
     volumes:
       - elastic_data:/usr/share/elasticsearch/data
-#    depends_on:
-#      - rabbitmq
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       bootstrap.memory_lock: "true"

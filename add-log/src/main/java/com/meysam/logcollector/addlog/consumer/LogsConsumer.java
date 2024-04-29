@@ -26,21 +26,23 @@ public class LogsConsumer {
 
     @KafkaListener(topics ="${spring.kafka.topics.new-log}", containerFactory = "kafkaListenerContainerFactory")
     public void handleNewLogs(List<ConsumerRecord<String, LogDto>> records) {
-        List<LogDto> logDtos = records.stream()
-                .map(ConsumerRecord::value).toList();
-        executor.submit(new LogsHandler(logDtos));
+        executor.submit(new LogsHandler(records));
     }
 
 
     private class LogsHandler implements Runnable{
 
-        private List<LogDto> logDtos;
+        private List<ConsumerRecord<String, LogDto>> records;
 
-        public LogsHandler(List<LogDto> logDtos){
-            this.logDtos=logDtos;
+        public LogsHandler(List<ConsumerRecord<String, LogDto>> records){
+            this.records=records;
         }
         @Override
         public void run() {
+
+            List<LogDto> logDtos = records.stream()
+                    .map(ConsumerRecord::value).toList();
+
             logDtos.parallelStream().forEach(logService::sendLogsFromKafkaConsumerToExternalService);
         }
     }
