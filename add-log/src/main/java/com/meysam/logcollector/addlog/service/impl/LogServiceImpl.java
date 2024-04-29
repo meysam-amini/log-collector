@@ -69,6 +69,11 @@ public class LogServiceImpl implements LogService {
         validateLogRequestDto(addLogRequestDto);
         ResponseEntity<String> response=null;
         try {
+            //note: feign decoder doesn't decode errors before the connection.
+            //Feign's error handling deals with situations where the request is sent
+            // and the server responds with an error status code. We can have connection
+            // time-out, or read time-out errors handeled, but for situation like
+            // UnknownHostException we can't use error decoder.
             response = externalService.sendLogToExternalApi(addLogRequestDto);
         }catch (Exception e){
             log.error("Feign connection error at time :{}",System.currentTimeMillis(),e);

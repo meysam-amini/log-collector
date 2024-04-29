@@ -51,6 +51,7 @@ public abstract class OutboxServiceImpl<T extends OutBoxableBaseEntity> implemen
             if(item.getRetryCount()>=retryCount){
                 int effectedRow = updateStatusInDistinctTransaction(item.getId(), OutboxEventStatus.RETRY_LIMIT_EXCEEDED, OutboxEventStatus.getAllValidStatusesForRetryLimitExceed());
             }else {
+                // TODO: 29.04.24 - change this to batch update 
                 int effectedRow = updateStatusInDistinctTransaction(item.getId(), OutboxEventStatus.SENDING, OutboxEventStatus.getAllValidStatusesForSending());
                 if (effectedRow != 0) {
                     validOutbox.add(item);

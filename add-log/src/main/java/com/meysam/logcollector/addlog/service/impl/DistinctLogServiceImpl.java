@@ -31,6 +31,7 @@ public class DistinctLogServiceImpl implements DistinctLogService {
                     .serviceName(addLogRequestDto.serviceName())
                     .requestId(addLogRequestDto.requestId())
                     .processed(true)
+                    .type(addLogRequestDto.type())
                     .status(status)
                     .build();
             if(status.equals(OutboxEventStatus.UNSENT)){

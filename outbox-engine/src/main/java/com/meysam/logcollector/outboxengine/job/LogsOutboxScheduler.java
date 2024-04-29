@@ -14,8 +14,8 @@ public class LogsOutboxScheduler {
 
     private final LogOutboxService logOutboxService;
 
-//    @Scheduled(cron = "0 0 0 * * *",zone = "Asia/Tehran")
-    @Scheduled(cron = "${outbox.engin.delay}" , zone = "Asia/Tehran")
+//    @Scheduled(cron = "${outbox.engin.delay}" , zone = "Asia/Tehran")
+    @Scheduled(fixedDelay = 1000)
     public void scheduler(){
 
         log.info("start scheduling unsent logs job at time:{}",System.currentTimeMillis());

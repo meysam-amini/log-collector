@@ -65,7 +65,7 @@ public class LogOutboxServiceImpl extends OutboxServiceImpl<LogEntity> implement
                 log.error("retry sending log:{} wasn't successful at time:{}, we couldn't update OutboxEventStatus to UNSENT again, exception:{}",
                         logEntity.toString(), System.currentTimeMillis(), dbException);
             }
-            throw new ServicesException("EXTERNAL_SERVICE_PROBLEM", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("");
         }
 
             if (response.getStatusCode().is2xxSuccessful()) {

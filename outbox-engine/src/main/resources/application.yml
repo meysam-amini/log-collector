@@ -2,52 +2,22 @@ server:
   port: 8093
 #  ${PORT:0}
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8010/eureka
 spring:
   application:
     name: outbox-engine
 
-outbox:
-  engine:
-    delay: 60 * 1000 * 60
-
-
-  ##################### KAFKA ############################
+##################### KAFKA ############################
   kafka:
     topics:
-      new-log: new-log
       new-log-added: new-log-added
-      new-log-add-failed: new-log-add-failed
-      new-sent-log-add-failed: new-sent-log-add-failed
-      not-sent-log-add-failed: not-sent-log-add-failed
     bootstrap-servers: localhost:29092
     producer:
-      key-deserializer: org.apache.kafka.common.serialization.StringSeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.meysam.logcollector.outboxengine.config.KafkaSerializerConfig
       #      buffer default size is 32 MB
       #      buffer:
       #        memory: 1048576
       retries: 0
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      session-timeout: 30000
-      enable-auto-commit: true
-      #allows a consumer to commit the offsets of messages automatically.
-      #If enabled, the consumer will commit offsets received from the broker.
-      auto-commit-interval: 1000
-      group-id: logs-syncer
-      #determines what action the consumer should take if there are no committed offsets
-      #for the consumer group or if the consumer is unable to connect to the last committed offset.
-      auto-offset-reset: earliest
-      max-poll-records: 1000
-    listener:
-      #related to number of partitions, so if we scale up number of instances,
-      #we should increase number of partitions first
-      concurrency: 2
   #  ############## DATA SOURCE ####################
   #  h2:
   #    console:
@@ -72,3 +42,11 @@ outbox:
 
 
 
+outbox:
+  engine:
+    delay: 60 * 1000 * 60
+  retry:
+    count: 3
+  processing:
+    page:
+      size: 100

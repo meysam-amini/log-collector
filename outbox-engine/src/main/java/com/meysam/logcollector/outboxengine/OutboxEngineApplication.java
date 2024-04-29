@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableScheduling
 @ComponentScan(basePackages = {"com.meysam.logcollector.*.*.*"})
 @EnableFeignClients(basePackages = {"com.meysam.logcollector.common.*.*.*"})
