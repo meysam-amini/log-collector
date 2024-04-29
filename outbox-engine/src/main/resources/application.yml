@@ -9,7 +9,7 @@ spring:
 ##################### KAFKA ############################
   kafka:
     topics:
-      new-log-added: new-log-added
+      new-log-added: new-log-add-success
     bootstrap-servers: localhost:29092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

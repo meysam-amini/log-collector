@@ -15,7 +15,12 @@ public class LogQueryServiceImpl implements LogQueryService {
     private final LogSearchRepository logSearchRepository;
 
     @Override
-    public Page<IndexedLog> findAllByText(String txt,int pageNo,int pageSize) {
-        return logSearchRepository.findAllByBodyContainsOrRequestIdContainsOrServiceNameContainsOrTypeContains(txt,PageRequest.of(pageNo,pageSize));
+    public Page<IndexedLog> findAllByText(String txt, int pageNo, int pageSize) {
+        return logSearchRepository.findAllByBodyContains(txt,PageRequest.of(pageNo,pageSize));
+    }
+
+    @Override
+    public Page<IndexedLog> findAll(int pageNo, int pageSize) {
+        return logSearchRepository.findAll(PageRequest.of(pageNo,pageSize));
     }
 }

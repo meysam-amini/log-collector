@@ -42,25 +42,23 @@ public class LogsConsumer {
         @Override
         public void run() {
 
-            List<IndexedLog> indexedLogs = records.parallelStream()
+            List<LogDto> logDtos = records.stream()
+                    .map(ConsumerRecord::value).toList();
+
+            List<IndexedLog> indexedLogs = records.stream()
                     .map(ConsumerRecord::value)
-                    .map(this::mapToIndexedLog)
+                    .map(logDto -> IndexedLog.builder()
+                            .body(logDto.getBody())
+                            .processed(logDto.isProcessed())
+                            .requestId(logDto.getRequestId())
+                            .serviceName(logDto.getServiceName())
+                            .type(logDto.getType().name())
+                            .build())
                     .toList();
 
             logAddService.addAll(indexedLogs);
 
         }
-        private IndexedLog mapToIndexedLog(LogDto logDto){
-
-            return IndexedLog.builder()
-                    .body(logDto.getBody())
-                    .processed(logDto.isProcessed())
-                    .requestId(logDto.getRequestId())
-                    .serviceName(logDto.getServiceName())
-                    .type(logDto.getType().name())
-                    .build();
-        }
-
     }
 
 

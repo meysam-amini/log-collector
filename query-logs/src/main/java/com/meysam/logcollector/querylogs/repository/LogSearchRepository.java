@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LogSearchRepository extends ElasticsearchRepository<IndexedLog, Long> {
 
-    Page<IndexedLog> findAllByBodyContainsOrRequestIdContainsOrServiceNameContainsOrTypeContains(String txt, Pageable pageable);
+    Page<IndexedLog> findAllByBodyContains(String txt1, Pageable pageable);
 
 
 }

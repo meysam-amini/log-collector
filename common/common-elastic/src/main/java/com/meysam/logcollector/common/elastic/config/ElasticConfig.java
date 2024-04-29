@@ -1,29 +1,30 @@
 package com.meysam.logcollector.common.elastic.config;
 
-import org.elasticsearch.client.RestHighLevelClient;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.erhlc.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.client.erhlc.RestClients;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
 
 @Configuration
-public class ElasticConfig {
+public class ElasticConfig extends ElasticsearchConfiguration {
 
-    @Bean
-    public RestHighLevelClient client() {
-        ClientConfiguration clientConfiguration
-                = ClientConfiguration.builder()
-                .connectedTo("localhost:9200")
-                .build();
-
-        return RestClients.create(clientConfiguration).rest();
+    @Override
+    public ClientConfiguration clientConfiguration() {
+        return ClientConfiguration.builder()
+                .connectedTo("localhost:9200").build();
     }
-
-    @Bean
-    public ElasticsearchOperations elasticsearchTemplate() {
-        return new ElasticsearchRestTemplate(client());
-    }
+//    @Bean
+//    public RestHighLevelClient client() {
+//        ClientConfiguration clientConfiguration
+//                = ClientConfiguration.builder()
+//                .connectedTo("localhost:9200")
+//                .build();
+//
+//        return RestClients.create(clientConfiguration).rest();
+//    }
+//
+//    @Bean
+//    public ElasticsearchOperations elasticsearchTemplate() {
+//        return new ElasticsearchRestTemplate(client());
+//    }
 
 }

@@ -15,9 +15,14 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.meysam.logcollector.common</groupId>-->
+<!--            <artifactId>common-security</artifactId>-->
+<!--            <version>1.2-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.meysam.logcollector.common</groupId>
-            <artifactId>common-security</artifactId>
+            <artifactId>common-elastic</artifactId>
             <version>1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -28,11 +33,6 @@
         <dependency>
             <groupId>com.meysam.logcollector.common</groupId>
             <artifactId>common-service</artifactId>
-            <version>1.2-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.meysam.logcollector.common</groupId>
-            <artifactId>common-dao</artifactId>
             <version>1.2-SNAPSHOT</version>
         </dependency>
         <dependency>

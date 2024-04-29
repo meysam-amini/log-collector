@@ -11,7 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@ComponentScan(basePackages = {"com.meysam.logcollector.*.*.*"})
+@ComponentScan(basePackages = {"com.meysam.logcollector.*.*.*"
+        ,"com.meysam.logcollector.*.*.*.*"})
 @EnableFeignClients(basePackages = {"com.meysam.logcollector.common.*.*.*"})
 @EntityScan(basePackages = "com.meysam.logcollector.common.model.entities.entity")
 @EnableJpaRepositories(basePackages={"com.meysam.logcollector.outboxengine.repository","com.meysam.logcollector.common.dao.repository"})

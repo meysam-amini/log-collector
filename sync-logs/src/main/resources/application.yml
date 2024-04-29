@@ -13,22 +13,12 @@ spring:
   ##################### KAFKA ############################
   kafka:
     topics:
-      new-log: new-log
-      new-log-added: new-log-added
-      new-log-add-failed: new-log-add-failed
-      new-sent-log-add-failed: new-sent-log-add-failed
-      not-sent-log-add-failed: not-sent-log-add-failed
+      new-log-added: new-log-add-success
     bootstrap-servers: localhost:29092
-    producer:
-      key-deserializer: org.apache.kafka.common.serialization.StringSeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      #      buffer default size is 32 MB
-      #      buffer:
-      #        memory: 1048576
-      retries: 0
+
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: com.meysam.logcollector.synclogs.config.KafkaDeserializerConfig
       session-timeout: 30000
       enable-auto-commit: true
       #allows a consumer to commit the offsets of messages automatically.
@@ -43,3 +33,12 @@ spring:
       #related to number of partitions, so if we scale up number of instances,
       #we should increase number of partitions first
       concurrency: 2
+
+  data:
+    elasticsearch:
+#      cluster-name: docker-cluster
+#      cluster-nodes: localhost:9200
+      repositories:
+        enabled: true
+  datasource:
+    driver-class-name:

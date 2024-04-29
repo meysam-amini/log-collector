@@ -7,7 +7,7 @@ spring:
   kafka:
     topics:
       new-log: new-log
-      new-log-added: new-log-added
+      new-log-added: new-log-add-success
       new-log-add-failed: new-log-add-failed
       new-sent-log-add-failed: new-sent-log-add-failed
       not-sent-log-add-failed: not-sent-log-add-failed

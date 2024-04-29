@@ -5,5 +5,6 @@ import org.springframework.data.domain.Page;
 
 public interface LogQueryService {
 
-    Page<IndexedLog> findAllByText(String txt,int pageNo,int pageSize);
+    Page<IndexedLog> findAllByText(String txt1,int pageNo,int pageSize);
+    Page<IndexedLog> findAll(int pageNo,int pageSize);
 }
