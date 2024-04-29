@@ -27,7 +27,7 @@ public class AddLogController {
 
     @PostMapping("direct")
 //    @PreAuthorize("hasAnyAuthority('ROLE_USER_LEVEL_1')")
-    public ResponseEntity<AddLogResponseDto> sendLogToExternalService(@RequestBody AddLogRequestDto addLogRequestDto/*, JwtAuthenticationToken token*/){
-        return logService.sendLogToExternalService(addLogRequestDto/*+token.getToken().getTokenValue()*/);
+    public ResponseEntity<AddLogResponseDto> sendLogToExternalService(@RequestBody AddLogRequestDto addLogRequestDto){
+        return logService.sendLogToExternalService(addLogRequestDto);
     }
 }

@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: add-log
+  messages:
+    #i18n
+    basename: messages/messages
 ##################### KAFKA ############################
   kafka:
     topics:

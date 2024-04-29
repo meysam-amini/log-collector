@@ -1,4 +1,4 @@
-package com.meysam.logcollector.common.exception.messagesLoader;
+package com.meysam.logcollector.common.exception.messages;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -11,7 +11,6 @@ import java.util.Locale;
 
 @Component
 public class LocaleMessageSourceService {
-
 
     @Resource
     private MessageSource messageSource;

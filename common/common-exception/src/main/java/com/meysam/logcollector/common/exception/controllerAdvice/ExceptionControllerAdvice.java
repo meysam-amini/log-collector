@@ -4,7 +4,7 @@ import com.meysam.logcollector.common.exception.exceptions.BusinessException;
 import com.meysam.logcollector.common.exception.exceptions.DataBaseException;
 import com.meysam.logcollector.common.exception.exceptions.KeycloakException;
 import com.meysam.logcollector.common.exception.exceptions.ServicesException;
-import com.meysam.logcollector.common.exception.messagesLoader.LocaleMessageSourceService;
+import com.meysam.logcollector.common.exception.messages.LocaleMessageSourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,14 +28,14 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(value = BusinessException.class)
     public ResponseEntity<String> businessExceptionHandler(BusinessException ex) {
         log.error("handling BusinessException at time :{}, exception is : {}",System.currentTimeMillis(),ex);
-        return ResponseEntity.status(ex.getHttpStatusCode()).body(ex.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSourceService.getMessage(ex.getMessage()));
     }
 
     @ResponseBody
     @ExceptionHandler(value = KeycloakException.class)
     public ResponseEntity<String>  keycloakExceptionHandler(KeycloakException ex) {
         log.error("handling KeycloakException at time :{}, exception is : {}",System.currentTimeMillis(),ex);
-        return ResponseEntity.status(ex.getHttpStatusCode()).body(messageSourceService.getMessage(ex.getMessage()));
+        return ResponseEntity.status(ex.getHttpStatusCode()).body(messageSourceService.getMessage(ex.getLocalizedMessage()));
     }
 
     @ExceptionHandler(BindException.class)
@@ -65,13 +65,13 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(DataBaseException.class)
     public ResponseEntity<String> servicesException(DataBaseException exception){
         log.error("handling ServicesException at time :{} , exception is : {}",System.currentTimeMillis(),exception);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSourceService.getMessage(exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSourceService.getMessage(exception.getLocalizedMessage()));
     }
 
     @ExceptionHandler(ServicesException.class)
     public ResponseEntity<String> servicesException(ServicesException exception){
         log.error("handling ServicesException at time :{} , exception is : {}",System.currentTimeMillis(),exception);
-        return ResponseEntity.status(exception.getHttpStatusCode()).body(messageSourceService.getMessage(exception.getMessage()));
+        return ResponseEntity.status(exception.getHttpStatusCode()).body(messageSourceService.getMessage(exception.getLocalizedMessage()));
     }
 
     @ExceptionHandler(Exception.class)

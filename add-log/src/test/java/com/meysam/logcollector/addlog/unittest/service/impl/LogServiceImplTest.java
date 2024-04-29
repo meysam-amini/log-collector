@@ -7,6 +7,7 @@ import com.meysam.logcollector.addlog.service.impl.LogServiceImpl;
 import com.meysam.logcollector.common.exception.exceptions.BusinessException;
 import com.meysam.logcollector.common.exception.exceptions.DataBaseException;
 import com.meysam.logcollector.common.exception.exceptions.ServicesException;
+import com.meysam.logcollector.common.exception.messages.LocaleMessageSourceService;
 import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
 import com.meysam.logcollector.common.model.dtos.dto.AddLogResponseDto;
 import com.meysam.logcollector.common.model.dtos.dto.LogDto;

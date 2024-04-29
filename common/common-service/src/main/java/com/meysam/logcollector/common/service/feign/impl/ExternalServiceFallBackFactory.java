@@ -1,7 +1,7 @@
 package com.meysam.logcollector.common.service.feign.impl;
 
 import com.meysam.logcollector.common.exception.exceptions.ServicesException;
-import com.meysam.logcollector.common.exception.messagesLoader.LocaleMessageSourceService;
+import com.meysam.logcollector.common.exception.messages.LocaleMessageSourceService;
 import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
 import com.meysam.logcollector.common.service.feign.api.ExternalServiceFeignClient;
 import feign.FeignException;

@@ -6,6 +6,7 @@ import com.meysam.logcollector.addlog.service.api.LogService;
 import com.meysam.logcollector.common.exception.exceptions.BusinessException;
 import com.meysam.logcollector.common.exception.exceptions.DataBaseException;
 import com.meysam.logcollector.common.exception.exceptions.ServicesException;
+import com.meysam.logcollector.common.exception.messages.LocaleMessageSourceService;
 import com.meysam.logcollector.common.model.dtos.dto.AddLogRequestDto;
 import com.meysam.logcollector.common.model.dtos.dto.AddLogResponseDto;
 import com.meysam.logcollector.common.model.dtos.dto.LogDto;
@@ -44,7 +45,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public AddLogResponseDto addLogToQueue(AddLogRequestDto addLogRequestDto){
-        
+
         validateLogRequestDto(addLogRequestDto);
 
         LogDto logDto = new LogDto(null,
@@ -128,7 +129,7 @@ public class LogServiceImpl implements LogService {
                     log.error("we couldn't release event not-sent-log-add-failed to kafka after failing to add a not sent log:{}, to DB at time:{}, exception:{}",logDto,System.currentTimeMillis(),e);
                 }
             }
-            throw new ServicesException("LOG_HAS_NOT_BEEN_SENT_TO_3RDPARTY_BUT_WE_WILL_TRY_IT_LATER",HttpStatus.SERVICE_UNAVAILABLE);
+            throw new BusinessException("LOG_HAS_NOT_BEEN_SENT_TO_3RDPARTY_BUT_WE_WILL_TRY_IT_LATER");
         }
 
     }
