@@ -129,7 +129,7 @@ public class LogServiceImpl implements LogService {
                     log.error("we couldn't release event not-sent-log-add-failed to kafka after failing to add a not sent log:{}, to DB at time:{}, exception:{}",logDto,System.currentTimeMillis(),e);
                 }
             }
-            throw new BusinessException("LOG_HAS_NOT_BEEN_SENT_TO_3RDPARTY_BUT_WE_WILL_TRY_IT_LATER");
+            throw new ServicesException("LOG_HAS_NOT_BEEN_SENT_TO_3RDPARTY_BUT_WE_WILL_TRY_IT_LATER");
         }
 
     }
